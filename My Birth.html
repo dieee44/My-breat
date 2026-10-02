@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My birth</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-gradient: linear-gradient(135deg, #eaf3ff 0%, #ffeaf3 100%);
+  --card: #ffffff;
+  --ink: #1e2d4a;
+  --mute: #6c82a3;
+  --blue: #3d8bff;
+  --blue-bg: #edf4ff;
+  --pink: #ff6fb1;
+  --pink-bg: #fff0f6;
+  --red: #ff4757;
+  --red-bg: #ffeae8;
+  --line: #dbe7ff;
+  --sh: rgba(61, 139, 255, 0.15);
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: 'Fredoka', system-ui, sans-serif;
+  min-height: 100vh;
+  padding-bottom: 90px;
+}
+
+header {
+  text-align: center;
+  padding: 24px 16px 12px;
+}
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+  background: linear-gradient(45deg, var(--blue), var(--pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.5px;
+}
+
+main {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* Card Utama */
+.card {
+  background: var(--card);
+  border-radius: 28px;
+  padding: 28px 20px 24px;
+  box-shadow: 0 12px 32px var(--sh);
+  border: 2px solid #ffffff;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Tombol Hapus Kiri Atas (Tong Sampah Merah) */
+.btn-delete-top {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: var(--red-bg);
+  border: 1px solid #ffd2d0;
+  color: var(--red);
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: transform 0.15s, background 0.15s;
+  z-index: 10;
+}
+.btn-delete-top:active {
+  transform: scale(0.9);
+  background: #ffd6d3;
+}
+
+/* AI Chibi Section */
+.chibi-box {
+  margin: 10px 0 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chibi-avatar {
+  font-size: 4.2rem;
+  animation: float 3s ease-in-out infinite;
+  display: inline-block;
+  filter: drop-shadow(0 8px 10px var(--sh));
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.chibi-speech {
+  background: var(--pink-bg);
+  border: 2px solid var(--pink);
+  color: #c92a75;
+  padding: 10px 18px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-top: 6px;
+  position: relative;
+  display: inline-block;
+}
+
+.chibi-speech::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0 8px 8px;
+  border-style: solid;
+  border-color: var(--pink) transparent;
+}
+
+/* Hari Countdown */
+.day-badge {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--blue);
+  margin: 12px 0 4px;
+  letter-spacing: 0.5px;
+}
+
+.info-text {
+  color: var(--mute);
+  font-size: 0.95rem;
+  margin-bottom: 14px;
+  line-height: 1.4;
+}
+
+.wish-box {
+  background: var(--blue-bg);
+  border-radius: 18px;
+  padding: 14px 16px;
+  font-size: 0.9rem;
+  color: var(--ink);
+  margin-top: 14px;
+  border-left: 4px solid var(--blue);
+  text-align: left;
+  line-height: 1.4;
+}
+
+/* Floating Action Button (Tab Tengah) */
+.nav-bar {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  padding: 8px 24px;
+  border-radius: 40px;
+  box-shadow: 0 10px 30px var(--sh);
+  border: 2px solid #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 100;
+}
+
+.fab {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue), var(--pink));
+  color: #fff;
+  border: none;
+  font-size: 2rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 20px var(--sh);
+  transition: transform 0.15s, opacity 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fab:active { transform: scale(0.92); }
+.fab:disabled { opacity: 0.4; cursor: not-allowed; filter: grayscale(1); }
+
+/* Modal Bottom Sheet */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 45, 74, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 200;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  background: var(--card);
+  width: 100%;
+  max-width: 500px;
+  border-radius: 32px 32px 0 0;
+  padding: 24px 22px 32px;
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-overlay.open .modal-content {
+  transform: translateY(0);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.modal-header h2 { margin: 0; font-size: 1.3rem; color: var(--blue); }
+.close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--mute); }
+
+/* Natural Form Styling (Pink & Blue Integration) */
+.form-group {
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--mute);
+  margin-bottom: 6px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 2px solid var(--line);
+  background: var(--blue-bg);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 500;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--pink);
+  background: #ffffff;
+}
+
+/* Integrated Date Pickers (Tgl, Bln, Thn) */
+.date-triple {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1.2fr;
+  gap: 8px;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 18px;
+  background: linear-gradient(135deg, var(--blue), var(--pink));
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  font-size: 1.05rem;
+  cursor: pointer;
+  margin-top: 8px;
+  box-shadow: 0 8px 18px var(--sh);
+}
+
+.btn-submit:active { transform: translateY(2px); }
+
+/* AI Thinking Screen */
+.ai-thinking {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(6px);
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.ai-thinking.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ai-icon-anim {
+  font-size: 4rem;
+  animation: pulse 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  to { transform: scale(1.2); }
+}
+
+.ai-status-text {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--blue);
+}
+
+/* Canvas Particle */
+#canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 150;
+}
+
+.empty-state {
+  padding: 40px 20px;
+  color: var(--mute);
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>My birth</h1>
+</header>
+
+<main>
+  <div id="app"></div>
+</main>
+
+<!-- Bottom Nav dengan FAB Center -->
+<div class="nav-bar">
+  <button class="fab" id="fabBtn" onclick="openModal()" aria-label="Tambah Acara">+</button>
+</div>
+
+<!-- Modal Form Tambah Acara -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Tambah Acara Baru</h2>
+      <button class="close-btn" onclick="closeModal()">✕</button>
+    </div>
+    <form id="birthForm">
+      <div class="form-group">
+        <label for="nama">Nama</label>
+        <input type="text" id="nama" required maxlength="30" placeholder="Masukkan nama..." autocomplete="off">
+      </div>
+      
+      <!-- Integrated Natural Date Selector -->
+      <div class="form-group">
+        <label>Tanggal Lahir (Batas: 2000 - 2026)</label>
+        <div class="date-triple">
+          <select id="tglDay" required></select>
+          <select id="tglMonth" required></select>
+          <select id="tglYear" required></select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="targetYear">Target Merayakan Pas Tahun</label>
+        <select id="targetYear"></select>
+      </div>
+
+      <div class="form-group">
+        <label for="wish">Harapan & Target</label>
+        <textarea id="wish" rows="3" placeholder="Ayo apa yang ingin kamu capai di tahun yang kamu tentukan? katakan. Opsional."></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit">Proses dengan AI ✨</button>
+    </form>
+  </div>
+</div>
+
+<!-- Screen AI Berpikir -->
+<div class="ai-thinking" id="aiThinking">
+  <div class="ai-icon-anim">🤖</div>
+  <div class="ai-status-text" id="aiStatusText">Berfikir...</div>
+  <div style="color:var(--mute); font-size:0.9rem;">Menganalisis tanggal & perkiraan umur</div>
+</div>
+
+<canvas id="canvas"></canvas>
+
+<script>
+const DB_KEY = 'my_birth_data';
+const MONTHS = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+
+// Populate Form Dropdowns (12 Bulan & Tahun 2000 - 2026)
+function initDropdowns() {
+  const daySel = document.getElementById('tglDay');
+  const monthSel = document.getElementById('tglMonth');
+  const yearSel = document.getElementById('tglYear');
+  const targetYearSel = document.getElementById('targetYear');
+
+  // Tanggal 1-31
+  daySel.innerHTML = '';
+  for(let d = 1; d <= 31; d++) {
+    const opt = document.createElement('option');
+    opt.value = d;
+    opt.textContent = d;
+    daySel.appendChild(opt);
+  }
+
+  // 12 Bulan
+  monthSel.innerHTML = '';
+  MONTHS.forEach((m, idx) => {
+    const opt = document.createElement('option');
+    opt.value = idx;
+    opt.textContent = m;
+    monthSel.appendChild(opt);
+  });
+
+  // Tahun Lahir (2000 - 2026)
+  yearSel.innerHTML = '';
+  for(let y = 2000; y <= 2026; y++) {
+    const opt = document.createElement('option');
+    opt.value = y;
+    opt.textContent = y;
+    yearSel.appendChild(opt);
+  }
+
+  // Target Year (2026 - 2050)
+  targetYearSel.innerHTML = '';
+  const currentYr = new Date().getFullYear();
+  for(let y = currentYr; y <= 2050; y++) {
+    const opt = document.createElement('option');
+    opt.value = y;
+    opt.textContent = y;
+    targetYearSel.appendChild(opt);
+  }
+}
+
+function getData() {
+  try {
+    return JSON.parse(localStorage.getItem(DB_KEY)) || [];
+  } catch(e) { return []; }
+}
+
+function saveData(data) {
+  localStorage.setItem(DB_KEY, JSON.stringify(data));
+}
+
+function calculateDetails(day, month, year, targetYear) {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  
+  // Tanggal Ultah Berikutnya
+  let nextBday = new Date(today.getFullYear(), month, day);
+  if (nextBday < today) {
+    nextBday.setFullYear(today.getFullYear() + 1);
+  }
+  
+  // Hitung sisa hari
+  const diffTime = nextBday - today;
+  const daysLeft = Math.round(diffTime / (1000 * 60 * 60 * 24));
+  
+  // Umur saat ini & mendatang
+  const ageNext = nextBday.getFullYear() - year;
+  const ageTarget = targetYear - year;
+
+  return {
+    daysLeft,
+    ageNext,
+    ageTarget,
+    nextDateFormatted: `${nextBday.getDate()} ${MONTHS[nextBday.getMonth()]} ${nextBday.getFullYear()}`,
+    targetYear
+  };
+}
+
+function getChibiState(days, name) {
+  if (days === 0) {
+    return { avatar: '🎉', dialog: `Selamat ulang tahun ya ${name}! 🥳✨` };
+  } else if (days <= 30) {
+    return { avatar: '🐣', dialog: 'Waktunya sudah dekat!!' };
+  } else if (days <= 180) {
+    return { avatar: '🐥', dialog: 'Separuh jalan yeyyy' };
+  } else {
+    return { avatar: '😴', dialog: 'Hamp, masih lama ya!!' };
+  }
+}
+
+function render() {
+  const list = getData();
+  const fab = document.getElementById('fabBtn');
+  const app = document.getElementById('app');
+
+  // Maksimal 1 acara
+  if (list.length >= 1) {
+    fab.disabled = true;
+    fab.title = "Maksimal 1 acara tercatat";
+  } else {
+    fab.disabled = false;
+  }
+
+  if (list.length === 0) {
+    app.innerHTML = `
+      <div class="card empty-state">
+        <div style="font-size:3.5rem; margin-bottom:10px;">🎂</div>
+        <h3 style="color:var(--blue); margin-bottom:6px;">Belum Ada Ulang Tahun</h3>
+        <p>Klik tombol <b>(+)</b> di bawah untuk menambahkan ulang tahunmu.</p>
+      </div>
+    `;
+    return;
+  }
+
+  const item = list[0];
+  const info = calculateDetails(item.day, item.month, item.year, item.targetYear);
+  const chibi = getChibiState(info.daysLeft, item.name);
+
+  app.innerHTML = `
+    <div class="card">
+      <!-- Tombol Hapus Logo Tong Sampah Merah di Kiri Atas -->
+      <button class="btn-delete-top" onclick="deleteData()" title="Hapus Acara">#</button>
+
+      <div class="chibi-box">
+        <div class="chibi-avatar">${chibi.avatar}</div>
+        <div class="chibi-speech">${chibi.dialog}</div>
+      </div>
+
+      <div class="day-badge">
+        ${info.daysLeft === 0 ? 'Hari Ini! 🎂' : `Hari ${String(info.daysLeft).padStart(3, '0')}`}
+      </div>
+
+      <h2 style="margin: 0 0 6px; font-size: 1.6rem; color: var(--ink);">${item.name}</h2>
+      
+      <div class="info-text">
+        ${info.daysLeft === 0 
+          ? `Selamat! Hari ini kamu genap berusia <b>${info.ageNext} tahun</b>.` 
+          : `Kamu akan merayakannya pada <b>${info.nextDateFormatted}</b> (Usia${info.ageNext} thn).`}
+      </div>
+
+      <div style="font-size:0.88rem; background:var(--pink-bg); color:#c92a75; padding:10px 14px; border-radius:14px; font-weight:600; display:inline-block;">
+        🎯 Target perayaan tahun <b>${item.targetYear}</b> (Usia ${info.ageTarget} tahun)
+      </div>
+
+      ${item.wish ? `<div class="wish-box"><b>Harapan:</b><br>"${item.wish}"</div>` : ''}
+    </div>
+  `;
+
+  if (info.daysLeft === 0) {
+    startConfetti();
+  }
+}
+
+// Modal Controls
+function openModal() {
+  if(getData().length >= 1) return;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+
+// Form Submit (Proses AI: "Berfikir..." -> "Ketemu!")
+document.getElementById('birthForm').onsubmit = function(e) {
+  e.preventDefault();
+  
+  const name = document.getElementById('nama').value.trim();
+  const day = parseInt(document.getElementById('tglDay').value);
+  const month = parseInt(document.getElementById('tglMonth').value);
+  const year = parseInt(document.getElementById('tglYear').value);
+  const targetYear = parseInt(document.getElementById('targetYear').value);
+  const wish = document.getElementById('wish').value.trim();
+
+  if(!name) return;
+
+  closeModal();
+
+  // Animasi AI Berpikir -> Ketemu
+  const aiScreen = document.getElementById('aiThinking');
+  const aiText = document.getElementById('aiStatusText');
+
+  aiText.textContent = "Berfikir...";
+  aiScreen.classList.add('active');
+
+  setTimeout(() => {
+    aiText.textContent = "Ketemu! ✨";
+    
+    setTimeout(() => {
+      aiScreen.classList.remove('active');
+      
+      const newData = [{
+        id: Date.now(),
+        name,
+        day,
+        month,
+        year,
+        targetYear,
+        wish
+      }];
+
+      saveData(newData);
+      render();
+      document.getElementById('birthForm').reset();
+    }, 700);
+  }, 1200);
+};
+
+function deleteData() {
+  if(confirm("Apakah kamu yakin ingin menghapus acara ini?")) {
+    localStorage.removeItem(DB_KEY);
+    render();
+  }
+}
+
+// Efek Confetti Partikel Ringan
+function startConfetti() {
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let particles = [];
+  const colors = ['#ff6fb1', '#3d8bff', '#ffc107', '#4cd137'];
+
+  for (let i = 0; i < 70; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height - canvas.height,
+      r: Math.random() * 6 + 2,
+      d: Math.random() * 10,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      tilt: Math.random() * 10 - 10
+    });
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach((p) => {
+      ctx.beginPath();
+      ctx.lineWidth = p.r;
+      ctx.strokeStyle = p.color;
+      ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
+      ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+      ctx.stroke();
+    });
+    update();
+  }
+
+  function update() {
+    particles.forEach((p) => {
+      p.y += Math.cos(p.d) + 1 + p.r / 2;
+      p.tilt += Math.sin(0.5);
+      if (p.y > canvas.height) {
+        p.y = -10;
+        p.x = Math.random() * canvas.width;
+      }
+    });
+  }
+
+  setInterval(draw, 20);
+} 
+
+// Init Application
+initDropdowns();
+render();
+</script>
+</body>
+</html>
